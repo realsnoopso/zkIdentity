@@ -14,6 +14,9 @@ template verifyWinner(n, k, levels) {
     signal input address;
     signal input nullifier;
 
+    signal rNum;
+    signal pubKeyBitRegisters[2][k];
+
     // By continuously hash the current node with the pathElements,
     // we are able move up in the Merkle Tree till the root node.
     signal input merklePathElements[levels];
@@ -45,9 +48,16 @@ template verifyWinner(n, k, levels) {
         checker.pathIndices[i] <== merklePathIndices[i];
     }
 
+    // verifying nullifier using Bitify
+    component rToNum = Bits2Num(k);
+    for (var i = 0; i < k; i++) {
+        rToNum.in[i] <== r[i];
+    }
+    rNum <== rToNum.out;
+
     component nullifierCheck = Poseidon(1);
-    component nullifierHashCheck = Poseidon(1);
+    nullifierCheck.inputs[0] <== rNum;
+    nullifierCheck.out === nullifier;
 }
 
-// Test: 10 levels
-component main = verifyWinner(10);
+component main = verifyWinner(86, 3, 10);
