@@ -36,6 +36,19 @@ committment = hash(key + secret)
 * User submits merkle path proof to smart contract, and it verifies one's identity without revealing which `commitment` is associated with one's public key.
 * Smart contract mints a NFT and sends to `account 2`
 
+#### What we are going to prove?
+* Let us know the following.
+```
+(sig, msg, pubKey, nullifier, nullifierHash, merkle_branch, merkle_root)
+```
+* such that...
+```
+sig == ecdsa_verify(r, s, msghash, pubkey)
+merkle_verify(pubkey, merkleRoot, merklePathElements, merklePathIndices)
+nullifier = poseidon(sig)
+nullifierHash = poseidon(nullifier)
+```
+
 ### IV. Product Roadmap
 
 * Version 1: Allow users to verify that they are the ones who are in merkle-tree commitments and retrieve NFT, in `DarkForest.eth`.
