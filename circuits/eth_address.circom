@@ -27,4 +27,18 @@ template pubKeyToEthAddr(n, k) {
             pubKeyBits[bitIdx] <== chunk2Bits[compIdx].out[bit];
         }
     }
+
+    // keccak public key
+    component keccak = Keccak(512, 256);
+    for (var i = 0; i < 512; i++) {
+        keccak.in[i] <== pubKeyBits[i];
+    }
+
+    // convert the last 160 bits into the number corresponding to address
+    component bits2Num = Bits2Num(160);
+    for (var i = 96; i < 256; i++) {
+        bits2Num.in[i - 96] <== pubKeyBits[i];
+    }
+
+    address <== bits2Num.out;
 }
