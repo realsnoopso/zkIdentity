@@ -4,6 +4,7 @@ include "./merkle.circom";
 include "./ecdsa.circom";
 include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/bitify.circom";
+include "./eth_address.circom";
 
 // prove that (sig, msg, pubKey, nullifier, merkle_branch, merkle_root)
 template verifyWinner(n, k, levels) {
@@ -26,6 +27,8 @@ template verifyWinner(n, k, levels) {
     signal input merklePathIndices[levels];
     signal input merkleRoot; // eth Addresses
 
+    signal address;
+
     // verifying `sig`
     // encoded with k registers of n bits each
     component verifySig = ECDSAVerify(n, k);
@@ -37,6 +40,13 @@ template verifyWinner(n, k, levels) {
         verifySig.pubkey[1][i] <== pubKey[1][i];
     }
     verifySig.result === 1;
+
+    component pubKeyToAddress = pubKeyToEthAddr(n, k);
+    for (var i = 0; i < k; i++) {
+        pubKeyToEthAddr.pubKey[0][i] <== pubKey[0][i];
+        pubKeyToEthAddr.pubKey[1][i] <== pubKey[1][i];
+    }
+    address <== pubKeyToAddress.address;
 
     // verifying `merkle`
     component checker = MerkleTreeChecker(levels);
