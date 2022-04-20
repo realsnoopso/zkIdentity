@@ -1,3 +1,4 @@
+pragma circom 2.0.3;
 // NOTE: adapted from tornado.cash
 include "../node_modules/circomlib/circuits/poseidon.circom";
 
