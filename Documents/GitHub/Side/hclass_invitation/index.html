@@ -1,0 +1,31 @@
+<head>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<h1>H클래스가 지원하는 신규가입 
+패키지를 마음껏 선물하세요.</h1>
+<p>지인이 가입을 완료하면 
+나도 같은 패키지를 받을 수 있어요.</p>
+
+<div class="card">
+  <h3>신규가입 패키지</h3>
+  <h5>만남권 1회</h5>
+  <p>99,000원</p>
+
+  <h5>패스권 1회</h5>
+  <p>25,000원</p>
+
+  <button onclick="handleClick()">선물 링크 복사</button>
+</div>
+
+<script>
+  function handleClick() {
+    window.navigator.share({
+    title: "테스트", 
+    text: "TOP 클래스를 위한 소개팅 어플, H클래스에 초대 되셨습니다. 해당 링크로 가입완료시 12만원 상당의 신규가입 패키지를 선물로 받으실 수 있어요. \n 신규 가입 패키지: \n 만남권 *1회 (99,000원)\n패스권 *1회 (25,000원) \n 아래 링크를 통해 가입 해주세요. 가입시 반드시 초대한 사람의 번호를 추천인 항목에 적어주셔야 선물이 지급됩니다.",
+    url: "https://hclassinvitation.oopy.io/", 
+    files: [],
+  });
+  }
+</script>

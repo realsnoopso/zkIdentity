@@ -1,0 +1,15 @@
+@font-face { 
+    font-family: 'HeirofLightTTFBold'; 
+    src: url('./assets/fonts/HeirofLightTTFBold.ttf') 
+    format('truetype'); 
+}
+
+@font-face { 
+    font-family: 'HeirofLightTTFRegular'; 
+    src: url('./assets/fonts/HeirofLightTTFRegular.ttf') 
+    format('truetype'); 
+}
+
+body {
+  font-family: "HeirofLightTTFRegular";
+}
